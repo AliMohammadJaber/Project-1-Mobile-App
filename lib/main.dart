@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/', // Set the initial route
       routes: {
         '/': (context) => const HomeScreen(), // Home screen with the Start Game button
-        '/game': (context) => RockPaperScissorsGame(), // Game screen
+        '/game': (context) => const RockPaperScissorsGame(), // Game screen
       },
     );
   }

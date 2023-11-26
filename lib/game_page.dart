@@ -25,7 +25,7 @@ class RockPaperScissorsGameState extends State<RockPaperScissorsGame> {
     setState(() {
       this.userChoice = userChoice;
       if (userChoice == computerChoice) {
-        result = 'It\'s a tie!';
+        result = "It's a tie!";
       } else if (
       (userChoice == 'rock' && computerChoice == 'scissors') ||
           (userChoice == 'paper' && computerChoice == 'rock') ||
@@ -47,7 +47,7 @@ class RockPaperScissorsGameState extends State<RockPaperScissorsGame> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
+          const Text(
             'Choose your move:',
             style: TextStyle(fontSize: 20),
           ),
@@ -68,17 +68,17 @@ class RockPaperScissorsGameState extends State<RockPaperScissorsGame> {
           const SizedBox(height: 20),
           Text(
             'Your Choice: $userChoice',
-            style: TextStyle(fontSize: 18),
+            style: const TextStyle(fontSize: 18),
           ),
           const SizedBox(height: 10),
           Text(
-            'Computer\'s Choice: $computerChoice',
-            style: TextStyle(fontSize: 18),
+            "Computer's Choice: $computerChoice",
+            style: const TextStyle(fontSize: 18),
           ),
           const SizedBox(height: 20),
           Text(
             '   Result: \n $result',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
         ],
       ),
