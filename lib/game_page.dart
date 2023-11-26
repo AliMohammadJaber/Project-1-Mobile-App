@@ -9,7 +9,7 @@ class RockPaperScissorsGame extends StatefulWidget {
 }
 
 class RockPaperScissorsGameState extends State<RockPaperScissorsGame> {
-  final List<String> choices = ['rock', 'paper', 'scissors'];
+  final List<String> choices = ['rock', 'paper', 'scissors' ];
   String userChoice = '';
   String computerChoice = '';
   String result = '';
@@ -42,46 +42,68 @@ class RockPaperScissorsGameState extends State<RockPaperScissorsGame> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Rock, Paper, Scissors'),
+
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+
+      body:
+      Stack(
+        fit: StackFit.expand,
         children: [
-          const Text(
-            'Choose your move:',
-            style: TextStyle(fontSize: 20),
+          // Background Image
+          Image.asset(
+            'assets/bg.png',
+            fit: BoxFit.cover,
           ),
-          const SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: choices.map((choice) {
-              return ElevatedButton(
-                onPressed: () => playGame(choice),
-                child: Image.asset(
-                  'assets/$choice.png',
-                  height: 80,
-                  width: 80,
-                ),
-              );
-            }).toList(),
+
+          Container(
+            color: Colors.black.withOpacity(0.5),
           ),
-          const SizedBox(height: 20),
-          Text(
-            'Your Choice: $userChoice',
-            style: const TextStyle(fontSize: 18),
+
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text(
+                'Choose your move:',
+                style: TextStyle(fontSize: 20,color:Colors.white),
+              ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: choices.map((choice) {
+                  return ElevatedButton(
+                    onPressed: () => playGame(choice),
+                    child: Image.asset(
+                      'assets/$choice.png',
+                      height: 80,
+                      width: 80,
+                    ),
+                  );
+                }).toList(),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                'Your Choice: $userChoice',
+                style: const TextStyle(fontSize: 18 ,color:Colors.white),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                "Computer's Choice: $computerChoice",
+                style: const TextStyle(fontSize: 18 ,color:Colors.white),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                '   Result: \n $result',
+                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold ,color:Colors.white),
+              ),
+            ],
           ),
-          const SizedBox(height: 10),
-          Text(
-            "Computer's Choice: $computerChoice",
-            style: const TextStyle(fontSize: 18),
-          ),
-          const SizedBox(height: 20),
-          Text(
-            '   Result: \n $result',
-            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
+
         ],
       ),
+
+
+
     );
   }
 }

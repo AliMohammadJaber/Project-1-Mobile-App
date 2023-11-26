@@ -31,13 +31,34 @@ class HomeScreen extends StatelessWidget {
         centerTitle: true,
         title: const Text('Rock, Paper, Scissors'),
       ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/game'); // Navigate to the game screen
-          },
-          child: const Text('Start Game'),
-        ),
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          // Background Image
+          Image.asset(
+            'assets/bg.png',
+            fit: BoxFit.cover,
+          ),
+
+          Container(
+            color: Colors.black.withOpacity(0.5),
+          ),
+
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/game');
+                },
+                child: const Text(
+                  'Start Game',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
