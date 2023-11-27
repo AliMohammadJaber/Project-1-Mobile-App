@@ -12,10 +12,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/', // Set the initial route
+      initialRoute: '/',
       routes: {
-        '/': (context) => const HomeScreen(), // Home screen with the Start Game button
-        '/game': (context) => const RockPaperScissorsGame(), // Game screen
+        '/': (context) => const HomeScreen(),
+        '/game': (context) => const RockPaperScissorsGame(),
       },
     );
   }
@@ -34,27 +34,39 @@ class HomeScreen extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          // Background Image
           Image.asset(
             'assets/bg.png',
             fit: BoxFit.cover,
           ),
-
           Container(
             color: Colors.black.withOpacity(0.5),
           ),
-
           Center(
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/game');
-                },
-                child: const Text(
-                  'Start Game',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                    child: Text(
+                      'Welcome to Rock Paper Scissors Game\n\n'
+                          'You got 3 lives\n'
+                          'Good Luck!\n',
+                      style: TextStyle(fontSize: 25, color: Colors.white),
+                      textAlign: TextAlign.center, // Optional: Center the text within the widget
+                    ),
+                  ),
+
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/game');
+                    },
+                    child: const Text(
+                      'Start Game',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
