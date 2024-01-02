@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'dart:math';
-
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+import './globals.dart';
 
 class RockPaperScissorsGame extends StatefulWidget {
   const RockPaperScissorsGame({Key? key}) : super(key: key);
@@ -18,9 +21,6 @@ class RockPaperScissorsGameState extends State<RockPaperScissorsGame> {
   int wins = 0;
   int losses = 0;
   int ties = 0;
-
-
-
 
   void makeComputerChoice() {
     final Random random = Random();
@@ -44,9 +44,8 @@ class RockPaperScissorsGameState extends State<RockPaperScissorsGame> {
       } else {
         result = 'You lose!';
         losses++;
-      }
-      if (losses >= 3) {
-        showDialog(
+        if (losses >= 3) {
+          showDialog(
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
@@ -62,15 +61,13 @@ class RockPaperScissorsGameState extends State<RockPaperScissorsGame> {
                   children: [
                     TextButton(
                       onPressed: () {
+                        loggedInUsername = '';
                         SystemNavigator.pop();
                       },
                       child: const Text("Quit Game", style: TextStyle(color: Colors.red)),
                     ),
                     TextButton(
                       onPressed: () {
-                        wins = 0;
-                        losses = 0;
-                        ties = 0;
                         Navigator.popUntil(context, ModalRoute.withName('/'));
                       },
                       child: const Text("Try Again", style: TextStyle(color: Colors.green)),
@@ -81,15 +78,75 @@ class RockPaperScissorsGameState extends State<RockPaperScissorsGame> {
               ],
             );
           },
-        ).then((value) {
-          wins = 0;
-          losses = 0;
-          ties = 0;
-          Navigator.popUntil(context, ModalRoute.withName('/'));
-        });
+          ).then((value) {
+            updateScore(loggedInUsername!, wins); // Add this line
+            wins = 0;
+            losses = 0;
+            ties = 0;
+            Navigator.popUntil(context, ModalRoute.withName('/'));
+          });
+        }
       }
     });
   }
+
+
+  Future<void> updateScore(String username, int wins) async {
+    try {
+      final response = await http.post(
+        Uri.parse('https://throwdowntrio.000webhostapp.com/update_score.php'),
+        body: {
+          'username': username,
+          'wins': wins.toString(),
+        },
+      );
+
+      if (response.statusCode == 200) {
+        try {
+          final Map<String, dynamic> data = json.decode(response.body);
+
+          // Check if the server response contains a flag indicating a new score record
+          if (data['newRecord']) {
+            showAlert('Success', 'New score record inserted successfully');
+          } else {
+            int updatedWins = data['wins']; // Retrieve the updated wins value
+            showAlert('Success', 'Score updated successfully. Wins: $updatedWins');
+          }
+        } catch (e) {
+          showAlert('Error', 'Error decoding server response: $e');
+        }
+      } else {
+        showAlert('Error', 'Failed to update score: ${response.statusCode}');
+      }
+    } catch (e) {
+      showAlert('Error', 'Error updating score: $e');
+    }
+  }
+
+
+
+  void showAlert(String title, String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +160,6 @@ class RockPaperScissorsGameState extends State<RockPaperScissorsGame> {
       Stack(
         fit: StackFit.expand,
         children: [
-          // Background Image
           Image.asset(
             'assets/bg.png',
             fit: BoxFit.cover,
