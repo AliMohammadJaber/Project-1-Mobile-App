@@ -46,40 +46,42 @@ class RockPaperScissorsGameState extends State<RockPaperScissorsGame> {
         losses++;
         if (losses >= 3) {
           showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Center(child: Text('Game Over')),
-              content: Text(
-                'You got 3 losses. Better luck next time!\n\n'
-                    '                        Wins: $wins \u{1F451}\n'
-                    '                        Ties: $ties \u{2694}',
-              ),
-              actions: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        loggedInUsername = '';
-                        SystemNavigator.pop();
-                      },
-                      child: const Text("Quit Game", style: TextStyle(color: Colors.red)),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.popUntil(context, ModalRoute.withName('/'));
-                      },
-                      child: const Text("Try Again", style: TextStyle(color: Colors.green)),
-                    ),
-
-                  ],
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Center(child: Text('Game Over')),
+                content: Text(
+                  'You got 3 losses. Better luck next time!\n\n'
+                      '                        Wins: $wins \u{1F451}\n'
+                      '                        Ties: $ties \u{2694}',
                 ),
-              ],
-            );
-          },
+                actions: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextButton(
+                        onPressed: () async {
+                          await updateScore(loggedInUsername!, wins);
+                          loggedInUsername = '';
+                          await Future.delayed(const Duration(milliseconds: 500));
+                          SystemNavigator.pop();
+                        },
+                        child: const Text("Quit Game", style: TextStyle(color: Colors.red)),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.popUntil(context, ModalRoute.withName('/'));
+                        },
+                        child: const Text("Try Again", style: TextStyle(color: Colors.green)),
+                      ),
+
+                    ],
+                  ),
+                ],
+              );
+            },
           ).then((value) {
-            updateScore(loggedInUsername!, wins); // Add this line
+            updateScore(loggedInUsername!, wins);
             wins = 0;
             losses = 0;
             ties = 0;
@@ -105,12 +107,8 @@ class RockPaperScissorsGameState extends State<RockPaperScissorsGame> {
         try {
           final Map<String, dynamic> data = json.decode(response.body);
 
-          // Check if the server response contains a flag indicating a new score record
           if (data['newRecord']) {
             showAlert('Success', 'New score record inserted successfully');
-          } else {
-            int updatedWins = data['wins']; // Retrieve the updated wins value
-            showAlert('Success', 'Score updated successfully. Wins: $updatedWins');
           }
         } catch (e) {
           showAlert('Error', 'Error decoding server response: $e');
@@ -137,7 +135,7 @@ class RockPaperScissorsGameState extends State<RockPaperScissorsGame> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         );
@@ -188,9 +186,9 @@ class RockPaperScissorsGameState extends State<RockPaperScissorsGame> {
                 children: choices.map((choice) {
                   return ElevatedButton(
                     onPressed: () => playGame(choice),
-                  style: ElevatedButton.styleFrom(
-                  fixedSize: const Size(100, 100),
-                  ),
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: const Size(100, 100),
+                    ),
                     child: Image.asset(
                       'assets/$choice.png',
                       height: 100,

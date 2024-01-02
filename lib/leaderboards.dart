@@ -27,7 +27,7 @@ class _LeaderboardsState extends State<LeaderboardsStateful> {
 
   Future<void> fetchData() async {
     try {
-      final baseUrl = 'https://throwdowntrio.000webhostapp.com';
+      const baseUrl = 'https://throwdowntrio.000webhostapp.com';
       List<Score> scores = await Score.fetchScores(baseUrl);
       print(scores);
 
@@ -37,13 +37,13 @@ class _LeaderboardsState extends State<LeaderboardsStateful> {
       });
     } catch (e) {
       print('Error fetching scores: $e');
-      // Add a more informative error message or handle the error appropriately
+
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text('Error'),
-            content: Text('Failed to fetch scores. Please try again later.'),
+            content: const Text('Failed to fetch scores. Please try again later.'),
             actions: [
               TextButton(
                 onPressed: () {
@@ -106,9 +106,9 @@ class _LeaderboardsState extends State<LeaderboardsStateful> {
                           ],
                           rows: _scores.map((score) {
                             return DataRow(cells: [
-                              DataCell(Text(score.playerName, style: TextStyle(color: Colors.white))),
-                              DataCell(Text(score.totalGamesPlayed.toString(), style: TextStyle(color: Colors.white))),
-                              DataCell(Text(score.totalWins.toString(), style: TextStyle(color: Colors.white))),
+                              DataCell(Text(score.playerName, style: const TextStyle(color: Colors.white))),
+                              DataCell(Text(score.totalGamesPlayed.toString(), style: const TextStyle(color: Colors.white))),
+                              DataCell(Text(score.totalWins.toString(), style: const TextStyle(color: Colors.white))),
                             ]);
                           }).toList(),
                         ),

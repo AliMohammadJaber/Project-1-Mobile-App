@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import './game_page.dart';
-import './get_users.dart';
+
 import './multiplayer.dart';
 import './leaderboards.dart';
 import './login.dart';
@@ -39,7 +39,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Score> _scores = [];
+
 
 
   @override
@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
               'Rock, Paper, Scissors',
               style: TextStyle(fontSize: 20),
             ),
-            const Spacer(), // Add Spacer widget here
+            const Spacer(),
             ElevatedButton(
               onPressed: () async {
                 Navigator.pushNamed(context, '/login');
@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
             : Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Welcome, $loggedInUsername', style: TextStyle(fontSize: 16)),
+            Text('Welcome, $loggedInUsername', style: const TextStyle(fontSize: 16)),
             ElevatedButton(
               onPressed: () async {
                 loggedInUsername = '';
@@ -83,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-        actions: [],
+        actions: const [],
       ),
 
 

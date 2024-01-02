@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'main.dart';
+
 class Multi extends StatelessWidget {
   const Multi({super.key});
 
@@ -9,7 +9,7 @@ class Multi extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Comming Soon"),
+        title: const Text("Coming Soon"),
       ),
 
         body: Stack(
@@ -38,7 +38,7 @@ class Multi extends StatelessWidget {
                       child:
 
                       Text(
-                        'Multiplayer Feature\n Comming Soon\n',
+                        'Multiplayer Feature\n Coming Soon\n',
                         style: TextStyle(fontSize: 25, color: Colors.white),
                         textAlign: TextAlign.center,
                       ),

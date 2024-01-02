@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import './register.dart';
-import 'dart:convert';
+
 import './globals.dart';
 import 'package:http/http.dart' as http;
 
@@ -70,7 +69,7 @@ class LoginScreen extends StatelessWidget {
                         Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
                       }
                       else {
-                        // Show an AlertDialog with the error message
+
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
@@ -90,7 +89,7 @@ class LoginScreen extends StatelessWidget {
                         );
                       }
                     } catch (e) {
-                      // Show an AlertDialog with the error message
+
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import './get_users.dart';
+
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -22,8 +22,8 @@ class RegisterScreen extends StatelessWidget {
           Container(
             color: Colors.black.withOpacity(0.5),
           ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
+          const Padding(
+            padding: EdgeInsets.all(16.0),
             child: RegisterForm(),
           ),
         ],
@@ -106,8 +106,8 @@ class _RegisterFormState extends State<RegisterForm> {
         children: [
           TextFormField(
             controller: _usernameController,
-            style: TextStyle(color: Colors.white),
-            decoration: InputDecoration(
+            style: const TextStyle(color: Colors.white),
+            decoration: const InputDecoration(
               labelText: 'Username',
               labelStyle: TextStyle(color: Colors.white),
             ),
@@ -122,8 +122,8 @@ class _RegisterFormState extends State<RegisterForm> {
           TextFormField(
             controller: _passwordController,
             obscureText: true,
-            style: TextStyle(color: Colors.white),
-            decoration: InputDecoration(
+            style: const TextStyle(color: Colors.white),
+            decoration: const InputDecoration(
               labelText: 'Password',
               labelStyle: TextStyle(color: Colors.white),
             ),
@@ -137,8 +137,8 @@ class _RegisterFormState extends State<RegisterForm> {
           const SizedBox(height: 20),
           TextFormField(
             controller: _emailController,
-            style: TextStyle(color: Colors.white),
-            decoration: InputDecoration(
+            style: const TextStyle(color: Colors.white),
+            decoration: const InputDecoration(
               labelText: 'Email',
               labelStyle: TextStyle(color: Colors.white),
             ),
